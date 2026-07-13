@@ -1,0 +1,27 @@
+---
+const { compact = false } = Astro.props;
+---
+
+<span class="brand" aria-label="Certael">
+  <svg class="brand-mark" viewBox="0 0 44 44" role="img" aria-hidden="true">
+    <defs>
+      <linearGradient id="certael-signal" x1="4" y1="4" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#8b7cff" />
+        <stop offset="1" stop-color="#54c8ff" />
+      </linearGradient>
+    </defs>
+    <path d="M34.4 10.5A16 16 0 1 0 34.4 33.5" fill="none" stroke="url(#certael-signal)" stroke-width="3.6" stroke-linecap="round" />
+    <circle cx="22" cy="22" r="4.2" fill="#f7f7fb" />
+    <circle cx="35.5" cy="10.5" r="2.5" fill="#8b7cff" />
+    <circle cx="38" cy="22" r="2.5" fill="#697cff" />
+    <circle cx="35.5" cy="33.5" r="2.5" fill="#54c8ff" />
+    <path d="M25.5 19.7 33.4 12M26.2 22H35M25.5 24.3l7.9 7.7" stroke="#8682a0" stroke-width="1" opacity=".7" />
+  </svg>
+  {!compact && <span class="brand-name">Certael</span>}
+</span>
+
+<style>
+  .brand { display: inline-flex; align-items: center; gap: .65rem; color: var(--text); }
+  .brand-mark { width: 2rem; height: 2rem; filter: drop-shadow(0 0 12px rgb(124 112 255 / .22)); }
+  .brand-name { font-size: .95rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+</style>

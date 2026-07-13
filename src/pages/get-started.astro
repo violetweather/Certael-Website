@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SetupBuilder from "../components/SetupBuilder";
+import ReleaseCards from "../components/ReleaseCards.astro";
+---
+
+<BaseLayout title="Install Certael — Core and optional Agent" description="Choose a game engine and follow the safe path to your first Certael-protected authoritative action.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Get started</p>
+    <h1>Protect the first action.<br /><span class="gradient-text">Keep the server in control.</span></h1>
+    <p class="lede">Choose your engine and protection mode. Prebuilt packages require no native toolchain.</p>
+  </section>
+  <section class="section-tight shell"><SetupBuilder client:load /></section>
+  <section class="section shell" id="agent">
+    <div class="split-heading"><div><p class="eyebrow">Release channels</p><h2>Core first. Agent when needed.</h2></div><p>Core is required for the authoritative request path. Agent is a separately installed, optional user-mode companion for protected modes.</p></div>
+    <ReleaseCards />
+  </section>
+</BaseLayout>

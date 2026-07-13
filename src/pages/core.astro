@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CapabilityGrid from "../components/CapabilityGrid.astro";
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Certael Core — Authoritative anti-cheat foundation" description="Protect authoritative game actions with bound sessions, replay resistance, custom rules, atomic commits, and explainable evidence.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Certael Core</p>
+    <h1>The client requests.<br /><span class="gradient-text">Your server decides.</span></h1>
+    <p class="lede">Core wraps an authoritative simulation with secure action admission, game-specific validation, atomic results, and evidence. It does not replace your game server.</p>
+    <div class="button-row"><a class="button primary" href={`${base}get-started/`}>Install Core</a><a class="button secondary" href="https://github.com/violetweather/Certael">View source ↗</a></div>
+  </section>
+  <section class="section shell">
+    <div class="flow">
+      <article><h3>Bind</h3><p>Issue a short-lived ticket for one player, match, server, build, environment, and ephemeral key.</p></article>
+      <article><h3>Admit</h3><p>Verify canonical bytes, possession proof, sequence, digest chain, rate policy, and request schema.</p></article>
+      <article><h3>Decide</h3><p>Evaluate declarative rules and bounded game callbacks against server-owned state.</p></article>
+      <article><h3>Commit</h3><p>Atomically persist the mutation, idempotent response, event, and minimized evidence.</p></article>
+    </div>
+  </section>
+  <section class="section shell">
+    <div class="split-heading"><div><p class="eyebrow">Core capabilities</p><h2>Admission is not authorization.</h2></div><p>A valid signature proves possession of a key. Only server-owned game logic may approve a valuable action.</p></div>
+    <CapabilityGrid />
+  </section>
+  <section class="section shell">
+    <div class="prose-grid">
+      <article class="prose-card"><p class="eyebrow">Use Core for</p><h3>Authoritative online modes</h3><ul><li>Movement input and abilities</li><li>Inventory, crafting, trades, and rewards</li><li>Progression and protected economies</li><li>Racing submissions and competitive actions</li></ul></article>
+      <article class="prose-card"><p class="eyebrow">Do not claim</p><h3>Trust in the client machine</h3><ul><li>Signatures do not prove honest input</li><li>Core does not scan client memory</li><li>Peer hosts have reduced assurance</li><li>Hidden data must not be sent to clients</li></ul></article>
+    </div>
+  </section>
+</BaseLayout>

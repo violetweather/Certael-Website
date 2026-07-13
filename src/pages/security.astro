@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { securityTruths } from "../data/site";
+---
+
+<BaseLayout title="Certael security model and trust boundary" description="Understand exactly what Certael Core and Agent guarantee—and what remains untrusted.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Normative boundary</p>
+    <h1>Assume the client<br /><span class="gradient-text">is compromised.</span></h1>
+    <p class="lede">Players can patch the game, suppress SDK calls, forge telemetry, and extract in-memory keys. Certael is designed around that boundary, not around hiding a secret in the client.</p>
+    <a class="button primary" href="https://github.com/violetweather/Certael/blob/main/docs/security-contract.md">Read the normative contract ↗</a>
+  </section>
+  <section class="section-tight shell">
+    <table class="truth-table"><thead><tr><th>Observation</th><th>What it establishes</th><th>What it does not establish</th></tr></thead><tbody>{securityTruths.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody></table>
+  </section>
+  <section class="section shell">
+    <div class="prose-grid">
+      <article class="prose-card"><p class="eyebrow">Guaranteed when integrated correctly</p><h3>Authoritative admission</h3><ul><li>Bound, short-lived, single-use bootstrap tickets</li><li>Alteration, replay, reorder, and broken-chain rejection</li><li>Atomic mutation, result, event, and idempotency</li><li>Signed immutable rule and protection documents</li><li>Tenant-aware authorization and evidence</li></ul></article>
+      <article class="prose-card"><p class="eyebrow">Explicitly not guaranteed</p><h3>Universal client honesty</h3><ul><li>A valid request may still contain dishonest input</li><li>User-mode keys can be extracted</li><li>Bots, macros, overlays, and altered rendering may evade detection</li><li>Sent hidden information cannot be made secret again</li><li>Listen servers do not equal dedicated-server assurance</li></ul></article>
+      <article class="prose-card"><p class="eyebrow">Failure semantics</p><h3>Deny or become indeterminate</h3><p>Missing authentication and unavailable replay state fail closed. Transaction uncertainty returns <code>Indeterminate</code>; clients reconcile authoritative state instead of retrying a valuable operation under a new action ID.</p></article>
+      <article class="prose-card"><p class="eyebrow">Enforcement ownership</p><h3>The game operator decides</h3><p>Certael may reject an action or recommend observation, restriction, kick, temporary suspension, or review. The integrating game owns identity, bans, appeals, and legal policy.</p></article>
+    </div>
+  </section>
+</BaseLayout>

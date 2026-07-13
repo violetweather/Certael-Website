@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Certael Agent — Optional user-mode integrity companion" description="Add fresh signed integrity evidence to Certael protected modes without a kernel driver.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Certael Agent · Optional</p>
+    <h1>Observe more.<br /><span class="gradient-text">Trust carefully.</span></h1>
+    <p class="lede">Agent is a separately installed user-mode companion. It launches approved builds and signs fresh integrity observations for the authoritative server—without becoming gameplay authority.</p>
+    <div class="button-row"><a class="button primary" href={`${base}get-started/#agent`}>Install Agent</a><a class="button secondary" href="https://github.com/violetweather/Certael-Agent">View source ↗</a></div>
+  </section>
+  <section class="section shell">
+    <div class="flow">
+      <article><h3>Launch</h3><p>Agent starts an approved game build and establishes private inherited process handles.</p></article>
+      <article><h3>Bind</h3><p>The trusted server issues a signed policy and short-lived grant bound to this build and Agent key.</p></article>
+      <article><h3>Challenge</h3><p>Fresh server nonces prevent old integrity reports from being replayed as current evidence.</p></article>
+      <article><h3>Report</h3><p>The server verifies the signed report chain and classifies the result as client-only evidence.</p></article>
+    </div>
+  </section>
+  <section class="section shell">
+    <div class="split-heading"><div><p class="eyebrow">Privacy boundary</p><h2>Purposefully limited.</h2></div><p>Agent checks the protected game context. It is not a general surveillance tool and has no kernel component.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Agent may report</h3><ul><li>Approved build-file hashes</li><li>Game executable identity</li><li>Game/Agent process relationship</li><li>Loaded image basenames</li><li>Debugger observation and probe health</li></ul></article>
+      <article class="prose-card"><h3>Agent does not collect</h3><ul><li>Keystrokes or screenshots</li><li>Window titles or unrelated processes</li><li>Network history or raw memory</li><li>Usernames, email, or full command lines</li><li>Arbitrary files outside the approved game</li></ul></article>
+    </div>
+  </section>
+  <section class="section shell">
+    <div class="callout"><strong>Enforcement rule:</strong> a valid Agent report can support observation, sampling, queue restriction, kick, temporary suspension, or manual review according to game policy. Agent-only evidence must never independently produce a permanent account punishment.</div>
+  </section>
+</BaseLayout>

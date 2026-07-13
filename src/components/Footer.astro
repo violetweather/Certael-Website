@@ -1,0 +1,29 @@
+---
+import Logo from "./Logo.astro";
+const base = import.meta.env.BASE_URL;
+const href = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
+---
+
+<footer>
+  <div class="footer-brand">
+    <Logo />
+    <p>Server authority, reinforced.</p>
+  </div>
+  <div class="footer-links">
+    <a href={href("get-started/")}>Install</a>
+    <a href={href("security/")}>Security boundary</a>
+    <a href="https://github.com/violetweather/Certael">Core on GitHub</a>
+    <a href="https://github.com/violetweather/Certael-Agent">Agent on GitHub</a>
+  </div>
+  <p class="fine-print">Certael is pre-1.0. Client evidence never makes an untrusted machine authoritative.</p>
+</footer>
+
+<style>
+  footer { width: min(calc(100% - 2rem), 1180px); margin: 5rem auto 1.5rem; padding: 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+  .footer-brand p, .fine-print { color: var(--muted); margin: .7rem 0 0; font-size: .82rem; }
+  .footer-links { display: grid; grid-template-columns: repeat(2, auto); gap: .8rem 2rem; }
+  .footer-links a { color: var(--subtle); text-decoration: none; font-size: .8rem; }
+  .footer-links a:hover { color: var(--text); }
+  .fine-print { grid-column: 1 / -1; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+  @media (max-width: 680px) { footer { grid-template-columns: 1fr; } .footer-links { grid-template-columns: 1fr; } }
+</style>

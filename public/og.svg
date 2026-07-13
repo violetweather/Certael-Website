@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><radialGradient id="bg"><stop stop-color="#29204e"/><stop offset="1" stop-color="#09090c"/></radialGradient><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b7cff"/><stop offset="1" stop-color="#54c8ff"/></linearGradient><pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern></defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#grid)"/>
+  <g transform="translate(100 155)"><path d="M225 0A160 160 0 1 0 225 320" fill="none" stroke="url(#g)" stroke-width="25" stroke-linecap="round"/><circle cx="112" cy="160" r="34" fill="#f5f4fa"/><circle cx="240" cy="0" r="18" fill="#8b7cff"/><circle cx="265" cy="160" r="18" fill="#697cff"/><circle cx="240" cy="320" r="18" fill="#54c8ff"/></g>
+  <text x="490" y="280" fill="#f5f4fa" font-family="system-ui,sans-serif" font-size="94" font-weight="600">Certael</text><text x="494" y="350" fill="#b4b0c3" font-family="monospace" font-size="29" letter-spacing="4">SERVER AUTHORITY, REINFORCED.</text><text x="494" y="415" fill="#8b7cff" font-family="monospace" font-size="20" letter-spacing="3">CORE + OPTIONAL USER-MODE AGENT</text>
+</svg>

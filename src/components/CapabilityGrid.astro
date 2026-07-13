@@ -1,0 +1,20 @@
+---
+import { capabilities } from "../data/site";
+const { limit } = Astro.props;
+const shown = typeof limit === "number" ? capabilities.slice(0, limit) : capabilities;
+---
+
+<div class="capability-grid">
+  {shown.map((capability, index) => (
+    <article class="capability-card">
+      <div class="card-top">
+        <span class="index">{String(index + 1).padStart(2, "0")}</span>
+        <span class={`status ${capability.status}`}>{capability.status}</span>
+      </div>
+      <p class="eyebrow">{capability.product}</p>
+      <h3>{capability.title}</h3>
+      <p>{capability.description}</p>
+      <a href={capability.sourceUrl}>Verify claim <span aria-hidden="true">↗</span></a>
+    </article>
+  ))}
+</div>

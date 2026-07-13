@@ -1,0 +1,39 @@
+{
+  "name": "certael-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "serve:test": "node scripts/static-server.mjs",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "verify": "npm run test && npm run build"
+  },
+  "dependencies": {
+    "@astrojs/react": "latest",
+    "@astrojs/sitemap": "latest",
+    "@react-three/drei": "latest",
+    "@react-three/fiber": "latest",
+    "astro": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "three": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@axe-core/playwright": "latest",
+    "@playwright/test": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/three": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}

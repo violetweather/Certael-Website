@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { engines } from "../../data/site";
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Certael engine integrations — Godot, Unity, and Unreal" description="Install Certael in Godot 4.7, Unity 6000.3, or Unreal Engine 5.8 without compiling native code.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Engine integrations</p>
+    <h1>One protocol.<br /><span class="gradient-text">Three engines.</span></h1>
+    <p class="lede">Prebuilt packages carry the same action semantics into Godot, Unity, and Unreal. The engine adapter signs intent; your game transport and authoritative server complete the flow.</p>
+  </section>
+  <section class="section-tight shell">
+    <div class="engine-tabs">
+      {engines.map((engine) => <a class="engine-card" href={`${base}engines/${engine.slug}/`}><p class="eyebrow">Certified line</p><strong>{engine.name}</strong><span>{engine.version} · Open guide ↗</span></a>)}
+    </div>
+  </section>
+  <section class="section shell">
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Prebuilt installation</h3><p>Players and game developers do not need Rust, SCons, godot-cpp, MSVC, or MinGW to consume a published engine package.</p></article>
+      <article class="prose-card"><h3>Your transport stays yours</h3><p>Certael does not replace ENet, Steam, EOS, custom RPC, or another authenticated multiplayer transport.</p></article>
+      <article class="prose-card"><h3>Typed request payloads</h3><p>Use stable schema identifiers and raw binary payloads. Do not ask designers to construct security-sensitive JSON.</p></article>
+      <article class="prose-card"><h3>Explicit failure policy</h3><p>Missing protected libraries stop protected initialization. Offline modes may disable online authorization and Agent requirements.</p></article>
+    </div>
+  </section>
+</BaseLayout>

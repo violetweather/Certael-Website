@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CapabilityGrid from "../components/CapabilityGrid.astro";
+---
+
+<BaseLayout title="Certael project status — Pre-1.0 evidence" description="See which Certael capabilities are available, in progress, or not yet independently verified.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Project status</p>
+    <h1>Evidence before<br /><span class="gradient-text">production claims.</span></h1>
+    <p class="lede">Certael remains pre-1.0. Interfaces and packaging can change, and the project will not call itself production-ready until every acceptance gate has objective evidence.</p>
+    <a class="button primary" href="https://github.com/violetweather/Certael/blob/main/docs/acceptance-status.md">Full acceptance record ↗</a>
+  </section>
+  <section class="section-tight shell"><CapabilityGrid /></section>
+  <section class="section shell">
+    <div class="split-heading"><div><p class="eyebrow">Outstanding gates</p><h2>What remains.</h2></div><p>The current alpha is meaningful security engineering—not a universal cheat detector or completed production certification.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Reference integrations</h3><p>Executable Godot, Unity, and Unreal reference games must reject the complete adversarial suite against equivalent server implementations.</p></article>
+      <article class="prose-card"><h3>Operational resilience</h3><p>Multi-replica PostgreSQL and Redis failover, recovery, chaos, and tenant-isolation results must demonstrate no double grants.</p></article>
+      <article class="prose-card"><h3>Scale and usability</h3><p>The 100,000-session, 24-hour soak, latency, and external under-30-minute integration targets remain evidence gates.</p></article>
+      <article class="prose-card"><h3>Independent review</h3><p>Protocol, cryptography, backend isolation, adapters, release pipeline, privacy, and documentation require external audit and retesting.</p></article>
+    </div>
+  </section>
+</BaseLayout>

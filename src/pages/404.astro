@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Page not found — Certael">
+  <section class="page-hero shell">
+    <p class="eyebrow">404 / Unknown route</p>
+    <h1>Request<br /><span class="gradient-text">rejected.</span></h1>
+    <p class="lede">The requested page is not registered in this build.</p>
+    <a class="button primary" href={base}>Return home</a>
+  </section>
+</BaseLayout>
