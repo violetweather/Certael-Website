@@ -1,6 +1,6 @@
 # Certael Website
 
-Private source repository for Certael's public GitHub Pages site. The site introduces [Certael Core](https://github.com/violetweather/Certael), the optional [Certael Agent](https://github.com/violetweather/Certael-Agent), and the supported Godot, Unity, and Unreal installation paths.
+Source repository for Certael's public GitHub Pages site. The site introduces [Certael Core](https://github.com/violetweather/Certael), the optional [Certael Agent](https://github.com/violetweather/Certael-Agent), and the supported Godot, Unity, and Unreal installation paths.
 
 The website is a curated guide. The Core and Agent security contracts remain normative.
 
@@ -25,6 +25,6 @@ Normal local builds fall back to checked-in release metadata if GitHub is unavai
 
 ## Publishing
 
-`main` deploys through the least-privilege Pages workflow. Configure **Settings → Pages → Source → GitHub Actions**. The repository may remain private, but the deployed website is public.
+`main` deploys through the least-privilege Pages workflow. Configure **Settings → Pages → Source → GitHub Actions**. The repository and deployed website are public.
 
 Do not store signing keys, production configuration, private vulnerabilities, player data, or unpublished security findings here. Browser-delivered HTML, CSS, JavaScript, and assets are public even when the source repository is private.

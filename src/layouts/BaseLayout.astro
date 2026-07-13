@@ -13,6 +13,7 @@ const {
   description = "An open-source anti-cheat foundation for authoritative Godot, Unity, and Unreal games.",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(`${import.meta.env.BASE_URL.replace(/^\//, "")}og.svg`, Astro.site);
 ---
 
 <!doctype html>
@@ -28,7 +29,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${Astro.site}${import.meta.env.BASE_URL}og.svg`} />
+    <meta property="og:image" content={socialImage} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
