@@ -4,6 +4,9 @@ Source repository for Certael's public GitHub Pages site. The site introduces [C
 
 The website is a curated guide. The Core and Agent security contracts remain normative.
 
+The currently documented pre-1.0 release pair is Certael Core
+`v0.1.0-alpha.7` with Certael Agent `v0.1.0-alpha.3`.
+
 ## Local development
 
 ```bash

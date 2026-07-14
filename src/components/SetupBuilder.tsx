@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { engines } from "../data/site";
+import { currentReleasePair, engines } from "../data/site";
 
 type Mode = "core" | "agent";
 
@@ -29,14 +29,14 @@ export default function SetupBuilder() {
         <div className="setup-meta"><span>{engine.name}</span><span>{engine.version}</span><span>{mode === "agent" ? "Protected online" : "Authoritative online"}</span></div>
         <h3>Install {engine.artifact}</h3>
         <ol>
-          <li>Download the artifact and checksum from the latest Core release.</li>
+          <li>Download the artifact and checksum from Core {currentReleasePair.core.tag}.</li>
           <li>{engine.installPath}</li>
           <li>Bootstrap a bound session through your authenticated game transport.</li>
           <li>Validate and commit every protected action on the authoritative server.</li>
-          {mode === "agent" && <li>Install Agent separately, configure its public trust store, and relay server-issued launch grants and challenges.</li>}
+          {mode === "agent" && <li>Install the complete Agent {currentReleasePair.agent.tag} package separately with its included installer and your public trust store.</li>}
         </ol>
         <pre><code>{engine.snippet}</code></pre>
-        <div className="setup-warning"><strong>Trust boundary</strong><span>{mode === "agent" ? "Agent evidence remains advisory. It does not authorize this action." : "The client signature admits bytes. Server-owned game state decides the outcome."}</span></div>
+        <div className="setup-warning"><strong>{mode === "agent" ? "Version pair" : "Trust boundary"}</strong><span>{mode === "agent" ? `Use Core ${currentReleasePair.core.tag} with Agent ${currentReleasePair.agent.tag}. Do not mix Agent alpha.3 with Core alpha.6; Agent evidence remains advisory.` : "The client signature admits bytes. Server-owned game state decides the outcome."}</span></div>
         <a className="button primary" href={`${import.meta.env.BASE_URL}engines/${engine.slug}/`}>Open the complete {engine.name} guide</a>
       </div>
     </div>

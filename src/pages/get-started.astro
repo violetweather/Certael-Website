@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SetupBuilder from "../components/SetupBuilder";
 import ReleaseCards from "../components/ReleaseCards.astro";
+import { currentReleasePair } from "../data/site";
 ---
 
 <BaseLayout title="Install Certael — Core and optional Agent" description="Choose a game engine and follow the safe path to your first Certael-protected authoritative action.">
@@ -11,6 +12,14 @@ import ReleaseCards from "../components/ReleaseCards.astro";
     <p class="lede">Choose your engine and protection mode. Prebuilt packages require no native toolchain.</p>
   </section>
   <section class="section-tight shell"><SetupBuilder client:load /></section>
+  <section class="section shell" id="compatibility">
+    <div class="split-heading"><div><p class="eyebrow">Current alpha pair</p><h2>Upgrade together.</h2></div><p>Core {currentReleasePair.core.tag} and Agent {currentReleasePair.agent.tag} share the tenant-bound Agent policy contract. Mixed older deployments are not a supported release pair.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>New installation</h3><ol><li>Install the Core package for your engine.</li><li>Deploy the authoritative server SDK and backend.</li><li>Register approved exported-game build IDs.</li><li>If the protected mode uses Agent, install its complete platform package and public trust store.</li><li>Bootstrap a fresh session and test replay, tampering, and dishonest requests.</li></ol></article>
+      <article class="prose-card"><h3>Upgrading from older alphas</h3><ol><li>Stop protected matches and the old Agent.</li><li>Apply Core database migrations 010–015.</li><li>Add tenant IDs, then regenerate and re-sign policies, rule packs, and protection profiles.</li><li>Deploy Core {currentReleasePair.core.tag}, then install Agent {currentReleasePair.agent.tag} as a complete package.</li><li>Start new sessions; do not reuse old policies, grants, or Agent sessions.</li></ol></article>
+    </div>
+    <div class="callout"><strong>Do not copy one DLL over an older installation.</strong> Replace the complete engine package and use the Agent installer so its stable launcher, versioned binary, activation record, probe, and compatibility manifest stay together.</div>
+  </section>
   <section class="section shell" id="agent">
     <div class="split-heading"><div><p class="eyebrow">Release channels</p><h2>Core first. Agent when needed.</h2></div><p>Core is required for the authoritative request path. Agent is a separately installed, optional user-mode companion for protected modes.</p></div>
     <ReleaseCards />
