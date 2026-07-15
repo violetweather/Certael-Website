@@ -18,7 +18,7 @@ test("setup selector changes the generated guide", async ({ page }) => {
   await page.selectOption("select", "unity");
   await page.getByRole("button", { name: "Core + Agent" }).click();
   await expect(page.getByRole("heading", { name: /certael-unity/i })).toBeVisible();
-  await expect(page.getByText(/Install the complete Agent/)).toBeVisible();
+  await expect(page.getByText(/register the game’s signed public trust material/)).toBeVisible();
 });
 
 test("reduced motion shows the static architecture", async ({ browser }) => {

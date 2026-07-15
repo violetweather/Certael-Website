@@ -29,4 +29,11 @@ const base = import.meta.env.BASE_URL;
       <article class="prose-card"><p class="eyebrow">Do not claim</p><h3>Trust in the client machine</h3><ul><li>Signatures do not prove honest input</li><li>Core does not scan client memory</li><li>Peer hosts have reduced assurance</li><li>Hidden data must not be sent to clients</li></ul></article>
     </div>
   </section>
+  <section class="section shell">
+    <div class="split-heading"><div><p class="eyebrow">Core + Agent 0.2</p><h2>Approve the whole build.</h2></div><p>Core stores and signs bounded build manifests, then binds the exact signed manifest digest into each short-lived Agent launch grant.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Build admission</h3><ul><li>Generate a bounded manifest request with <code>certaelctl agent-build request</code></li><li>Register it through the authenticated administrative API</li><li>Issue policy, launch grant, and manifest as one launch bundle</li><li>Reject changed, missing, extra, or out-of-root protected files</li></ul></article>
+      <article class="prose-card"><h3>Session control</h3><ul><li>Bind tenant, game, environment, player, match, server, build, and Agent key</li><li>Track heartbeat, report deadline, expiry, and disconnect grace</li><li>Relay signed revocation on lifecycle changes</li><li>Keep Agent-only evidence advisory for account punishment</li></ul></article>
+    </div>
+  </section>
 </BaseLayout>

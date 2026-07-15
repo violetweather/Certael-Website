@@ -2,12 +2,24 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { currentReleasePair } from "../data/site";
 const windowsInstall = `Set-ExecutionPolicy -Scope Process Bypass
-.\\install\\install.ps1 -TrustStore C:\\path\\to\\trust-store.json`;
-const unixInstall = `sudo ./install/install.sh \\
-  --trust-store /path/to/trust-store.json`;
-const protectedLaunch = `certael-agent launch \\
-  --game /absolute/path/to/exported-game \\
-  --trust-store /usr/local/etc/certael/trust-store.json`;
+.\\install\\install.ps1`;
+const unixInstall = `sudo ./install/install.sh`;
+const windowsRegister = [
+  "& 'C:\\Program Files\\Certael\\certael-agent.exe' register-game `",
+  "  --registration C:\\Game\\Certael\\registration.pb `",
+  "  --publisher-trust-store C:\\Game\\Certael\\publisher-trust-store.json `",
+  "  --update-root C:\\Game\\Certael\\update-root.json --game-root C:\\Game",
+].join("\n");
+const unixRegister = [
+  "sudo certael-agent register-game \\",
+  "  --registration /opt/game/certael/registration.pb \\",
+  "  --publisher-trust-store /opt/game/certael/publisher-trust-store.json \\",
+  "  --update-root /opt/game/certael/update-root.json --game-root /opt/game",
+].join("\n");
+const protectedLaunch = [
+  "certael-agent list-games",
+  "certael-agent launch-game --registration-id my-game-production",
+].join("\n");
 ---
 
 <BaseLayout title="Certael Agent — Optional user-mode integrity companion" description="Add fresh signed integrity evidence to Certael protected modes without a kernel driver.">
@@ -20,31 +32,46 @@ const protectedLaunch = `certael-agent launch \\
   <section class="section shell">
     <div class="flow">
       <article><h3>Launch</h3><p>Agent starts an approved game build and establishes private inherited process handles.</p></article>
-      <article><h3>Bind</h3><p>The trusted server issues a signed policy and short-lived grant bound to this build and Agent key.</p></article>
+      <article><h3>Bind</h3><p>The trusted server issues a signed policy, short-lived grant, and signed whole-build manifest bound to this build and Agent key.</p></article>
       <article><h3>Challenge</h3><p>Fresh server nonces prevent old integrity reports from being replayed as current evidence.</p></article>
       <article><h3>Report</h3><p>The server verifies the signed report chain and classifies the result as client-only evidence.</p></article>
     </div>
   </section>
   <section class="section shell" id="install">
-    <div class="split-heading"><div><p class="eyebrow">Installation</p><h2>One Agent per computer.</h2></div><p>Download the matching {currentReleasePair.agent.tag} archive. The game does not copy Agent into its own directory; the installer places a stable launcher, versioned binary, and public trust store in protected system locations.</p></div>
+    <div class="split-heading"><div><p class="eyebrow">Installation</p><h2>One Agent per computer.</h2></div><p>Download the matching {currentReleasePair.agent.tag} archive. The game does not copy Agent into its directory; the installer places a stable launcher and versioned binary in protected system locations.</p></div>
     <div class="prose-grid">
-      <article class="prose-card"><p class="eyebrow">Windows 11 x64</p><h3>Elevated PowerShell</h3><ol><li>Extract <code>certael-agent-windows-x86_64.zip</code>.</li><li>Obtain your game operator’s public <code>trust-store.json</code>.</li><li>Open PowerShell as Administrator in the extracted folder.</li></ol><pre tabindex="0" aria-label="Windows Agent installation commands"><code>{windowsInstall}</code></pre><p>Launcher: <code>C:\Program Files\Certael\certael-agent.exe</code></p></article>
-      <article class="prose-card"><p class="eyebrow">Ubuntu 24.04 / macOS 15</p><h3>Root installation</h3><ol><li>Extract the matching x64 or arm64 archive.</li><li>Obtain the operator’s public <code>trust-store.json</code>.</li><li>Run the included installer from the extracted folder.</li></ol><pre tabindex="0" aria-label="Linux and macOS Agent installation commands"><code>{unixInstall}</code></pre><p>Launcher: <code>/usr/local/bin/certael-agent</code></p></article>
+      <article class="prose-card"><p class="eyebrow">Windows 11 x64</p><h3>Elevated PowerShell</h3><ol><li>Extract <code>certael-agent-windows-x86_64.zip</code>.</li><li>Open PowerShell as Administrator in the extracted folder.</li><li>Run the included installer.</li></ol><pre tabindex="0" aria-label="Windows Agent installation commands"><code>{windowsInstall}</code></pre><p>Launcher: <code>C:\Program Files\Certael\certael-agent.exe</code></p></article>
+      <article class="prose-card"><p class="eyebrow">Ubuntu 24.04 / macOS 15</p><h3>Root installation</h3><ol><li>Extract the matching x64 or arm64 archive.</li><li>Open a terminal in the extracted folder.</li><li>Run the included installer.</li></ol><pre tabindex="0" aria-label="Linux and macOS Agent installation commands"><code>{unixInstall}</code></pre><p>Launcher: <code>/usr/local/bin/certael-agent</code></p></article>
     </div>
-    <div class="callout">The trust store contains public Ed25519 verification keys only. Never place the signing private key on a player computer or inside the game project.</div>
+    <div class="callout">Installation does not require a global trust store. Each game is registered separately with publisher-signed public trust material. Never place a signing private key on a player computer or inside the game project.</div>
+  </section>
+  <section class="section shell" id="register">
+    <div class="split-heading"><div><p class="eyebrow">Game registration</p><h2>Add each protected game.</h2></div><p>The game publisher distributes a signed registration, a publisher public trust store, a trusted update root, and the installed game root. Agent verifies and isolates them by registration ID.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><p class="eyebrow">Windows</p><h3>Register as Administrator</h3><pre tabindex="0" aria-label="Windows game registration command"><code>{windowsRegister}</code></pre></article>
+      <article class="prose-card"><p class="eyebrow">Linux / macOS</p><h3>Register as root</h3><pre tabindex="0" aria-label="Unix game registration command"><code>{unixRegister}</code></pre></article>
+    </div>
+    <div class="callout">To rotate registration or trust material, use <code>update-game-registration</code> with the same four arguments. Agent verifies the replacement before switching atomically.</div>
   </section>
   <section class="section shell" id="launch">
     <div class="split-heading"><div><p class="eyebrow">Protected launch</p><h2>Let Agent start the export.</h2></div><p>Launch protected online modes through Agent. Start ordinary offline or Agent-disabled modes directly.</p></div>
     <pre tabindex="0" aria-label="Protected game launch command"><code>{protectedLaunch}</code></pre>
     <div class="prose-grid">
-      <article class="prose-card"><h3>Server prerequisites</h3><ul><li>Core {currentReleasePair.core.tag}</li><li>An approved executable build ID</li><li>A tenant-bound signed Agent policy</li><li>A fresh, short-lived launch grant</li><li>Fresh challenges for every integrity report</li></ul></article>
-      <article class="prose-card"><h3>Upgrading from Agent alpha.1</h3><ul><li>Stop the old Agent and game first.</li><li>Keep the existing public trust store only if its key remains valid and unrevoked.</li><li>Install the entire {currentReleasePair.agent.tag} archive; do not overwrite only the executable.</li><li>Deploy Core {currentReleasePair.core.tag} and create a new Agent session.</li><li>Do not reuse an alpha.1 policy or launch grant.</li></ul></article>
+      <article class="prose-card"><h3>Server prerequisites</h3><ul><li>Core {currentReleasePair.core.tag}</li><li>A registered signed whole-build manifest</li><li>A tenant-bound signed Agent policy</li><li>A fresh, short-lived launch grant</li><li>Heartbeat, report, and signed revocation handling</li></ul></article>
+      <article class="prose-card"><h3>Upgrading from older Agent alphas</h3><ul><li>Stop the old Agent and game first.</li><li>Install the entire {currentReleasePair.agent.tag} archive; do not overwrite only the executable.</li><li>Create and install a signed per-game registration; the old global trust-store layout is retired.</li><li>Deploy Core {currentReleasePair.core.tag} and register a signed whole-build manifest.</li><li>Start a new session. Do not reuse an old policy, grant, registration, or Agent session.</li></ul></article>
+    </div>
+  </section>
+  <section class="section shell" id="health">
+    <div class="split-heading"><div><p class="eyebrow">Live protection</p><h2>State developers can act on.</h2></div><p>The game and Agent UI receive the same bounded session state. Protected queues can fail closed without pretending every client-side observation is proof of cheating.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Timed states</h3><ul><li><code>ready</code> and <code>protected</code></li><li><code>degraded</code> and <code>lost</code></li><li><code>expired</code> and <code>revoked</code></li><li><code>update_required</code></li></ul></article>
+      <article class="prose-card"><h3>Safe recovery</h3><ul><li>Signed revocation on logout, match exit, account switch, or server migration</li><li>Trusted update metadata and staged automatic activation</li><li>Rollback to the last known-good Agent version</li><li>GUI actions backed by live registry and session state</li></ul></article>
     </div>
   </section>
   <section class="section shell">
     <div class="split-heading"><div><p class="eyebrow">Privacy boundary</p><h2>Purposefully limited.</h2></div><p>Agent checks the protected game context. It is not a general surveillance tool and has no kernel component.</p></div>
     <div class="prose-grid">
-      <article class="prose-card"><h3>Agent may report</h3><ul><li>Approved build-file hashes</li><li>Game executable identity</li><li>Game/Agent process relationship</li><li>Loaded image basenames</li><li>Debugger observation and probe health</li></ul></article>
+      <article class="prose-card"><h3>Agent may report</h3><ul><li>Approved whole-build file hashes</li><li>Game executable identity</li><li>Game/Agent process relationship</li><li>Loaded image basenames</li><li>Debugger observation, probe health, and timed protection state</li></ul></article>
       <article class="prose-card"><h3>Agent does not collect</h3><ul><li>Keystrokes or screenshots</li><li>Window titles or unrelated processes</li><li>Network history or raw memory</li><li>Usernames, email, or full command lines</li><li>Arbitrary files outside the approved game</li></ul></article>
     </div>
   </section>
