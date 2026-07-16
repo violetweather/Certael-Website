@@ -68,6 +68,15 @@ const protectedLaunch = [
       <article class="prose-card"><h3>Safe recovery</h3><ul><li>Signed revocation on logout, match exit, account switch, or server migration</li><li>Trusted update metadata and staged automatic activation</li><li>Rollback to the last known-good Agent version</li><li>GUI actions backed by live registry and session state</li></ul></article>
     </div>
   </section>
+  <section class="section shell" id="troubleshooting">
+    <div class="split-heading"><div><p class="eyebrow">Troubleshooting</p><h2>Diagnose the actual boundary.</h2></div><p>Agent rejects malformed or unverified admission data. The current release names the failed component so developers do not weaken the protocol limit or guess at the cause.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Windows says the environment is invalid</h3><p>This was a launch defect in Agent v0.3.0-alpha.1 on systems exposing undocumented pseudo-environment entries such as <code>=::</code>. Install the complete {currentReleasePair.agent.tag} Windows archive and relaunch through the installed Agent. A PowerShell environment-clearing wrapper is no longer required.</p></article>
+      <article class="prose-card"><h3>A launch-bundle component is rejected</h3><p>Relay the server-returned signed policy, launch grant, and build manifest as raw Protobuf bytes—not the whole API response and not undecoded Base64 text. Read the named component in the error. Do not increase the 64 KiB limit.</p></article>
+      <article class="prose-card"><h3>The game says Agent is bound too early</h3><p>Show “integrity monitoring active” only after the engine binding method returns success and Agent reports <code>ready</code>. Sending the bundle is not the same as completing verification.</p></article>
+      <article class="prose-card"><h3>The detailed error still reports empty claims</h3><p>Confirm the API response fields were extracted unchanged: signed policy field 2, signed launch grant field 3, and signed build manifest field 5. Log sizes and hashes—not secret or player-bearing payload contents—at both server and game relay boundaries.</p></article>
+    </div>
+  </section>
   <section class="section shell">
     <div class="split-heading"><div><p class="eyebrow">Privacy boundary</p><h2>Purposefully limited.</h2></div><p>Agent checks the protected game context. It is not a general surveillance tool and has no kernel component.</p></div>
     <div class="prose-grid">

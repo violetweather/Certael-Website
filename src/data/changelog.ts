@@ -17,6 +17,32 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    product: "Agent",
+    version: "v0.3.0-alpha.2",
+    date: "2026-07-15",
+    availability: "published",
+    summary: "Fixes protected launch on Windows systems with pseudo-environment entries and makes malformed launch-bundle errors actionable.",
+    releaseUrl: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.3.0-alpha.2",
+    compareUrl: "https://github.com/violetweather/Certael-Agent/compare/v0.3.0-alpha.1...v0.3.0-alpha.2",
+    implemented: [
+      "Dedicated Windows environment sanitization that preserves valid drive-current-directory entries and inherited Agent handles.",
+      "A distinct empty-message protocol error instead of classifying empty bytes as a message over 64 KiB.",
+      "Nested launch-bundle diagnostics that identify the signed policy, launch grant, build manifest, or claims stage that failed.",
+      "Fresh Windows, Linux, macOS arm64, and macOS x64 packages with checksums, CycloneDX SBOMs, Sigstore bundles, and build provenance.",
+    ],
+    fixes: [
+      "Protected Windows launch no longer aborts when Explorer or another parent process supplies malformed pseudo-environment entries such as =::.",
+      "A small bundle with an empty nested field no longer reports the false message ‘exceeds the 64 KiB protocol limit.’",
+      "The Windows release package passed a clean hosted build and packaged launch smoke test.",
+    ],
+    breaking: [],
+    migration: [
+      "Stop the game and old Agent, then install the complete v0.3.0-alpha.2 archive; do not replace only certael-agent.exe.",
+      "Core v0.3.0-alpha.1, Agent protocol v1, probe ABI v1, and existing signed v0.3 game registrations remain compatible.",
+      "Start a fresh Agent process and protected session. If admission still fails, use the named policy, grant, manifest, or claims error to inspect the exact relayed bytes.",
+    ],
+  },
+  {
     product: "Core",
     version: "v0.3.0-alpha.1",
     date: "2026-07-15",

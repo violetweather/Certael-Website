@@ -26,8 +26,8 @@ export const currentReleasePair = {
     url: "https://github.com/violetweather/Certael/releases/tag/v0.3.0-alpha.1",
   },
   agent: {
-    tag: "v0.3.0-alpha.1",
-    url: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.3.0-alpha.1",
+    tag: "v0.3.0-alpha.2",
+    url: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.3.0-alpha.2",
   },
 } as const;
 
