@@ -23,6 +23,9 @@ test("setup selector changes the generated guide", async ({ page }) => {
 
 test("changelog exposes every change category and both products", async ({ page }) => {
   await page.goto("changelog/");
+  await expect(page.locator(".changelog-columns")).toBeVisible();
+  await expect(page.locator("#core-releases")).toBeVisible();
+  await expect(page.locator("#agent-releases")).toBeVisible();
   await expect(page.getByRole("heading", { name: "v0.2.0-alpha.1" })).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "Implemented" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Fixes" }).first()).toBeVisible();

@@ -4,6 +4,7 @@ import { changelog } from "../data/changelog";
 
 const publishedCount = changelog.filter((entry) => entry.availability === "published").length;
 const breakingCount = changelog.filter((entry) => entry.breaking.length > 0).length;
+const products = ["Core", "Agent"] as const;
 ---
 
 <BaseLayout title="Certael changelog — Core and Agent release history" description="Every Certael Core and Agent update, including implementations, fixes, breaking changes, and migration instructions.">
@@ -20,7 +21,6 @@ const breakingCount = changelog.filter((entry) => entry.breaking.length > 0).len
 
   <section class="section-tight shell">
     <nav class="changelog-jump" aria-label="Filter changelog by product">
-      <a href="#all-releases">All releases</a>
       <a href="#core-releases">Core</a>
       <a href="#agent-releases">Agent</a>
       <a href="#upgrade-policy">Upgrade policy</a>
@@ -29,32 +29,45 @@ const breakingCount = changelog.filter((entry) => entry.breaking.length > 0).len
   </section>
 
   <section class="section shell" id="all-releases">
-    <div class="split-heading"><div><p class="eyebrow">Complete timeline</p><h2>Newest first.</h2></div><p>“Tag only” means source was tagged during release engineering but no supported downloadable GitHub release was published. Those entries remain here so the historical record is complete.</p></div>
-    <div class="changelog-list">
-      {changelog.map((entry) => (
-        <article class={`changelog-entry product-${entry.product.toLowerCase()}`} id={`${entry.product.toLowerCase()}-${entry.version.replaceAll(".", "-")}`}>
-          <header class="changelog-entry-header">
-            <div>
-              <div class="changelog-meta"><span>{entry.product}</span><time datetime={entry.date}>{entry.date}</time><span class={`availability ${entry.availability}`}>{entry.availability === "published" ? "Published release" : "Tag only"}</span></div>
-              <h3>{entry.version}</h3>
-              <p>{entry.summary}</p>
-            </div>
-            <div class="changelog-links"><a href={entry.releaseUrl}>View {entry.availability === "published" ? "release" : "tag"} ↗</a>{entry.compareUrl && <a href={entry.compareUrl}>Source comparison ↗</a>}</div>
-          </header>
-          <div class="change-groups">
-            <section><h4><span class="change-icon implemented" aria-hidden="true">+</span> Implemented</h4><ul>{entry.implemented.map((item) => <li>{item}</li>)}</ul></section>
-            <section><h4><span class="change-icon fixes" aria-hidden="true">✓</span> Fixes</h4>{entry.fixes.length > 0 ? <ul>{entry.fixes.map((item) => <li>{item}</li>)}</ul> : <p class="empty-change">No fixes declared for this update.</p>}</section>
-            <section class={entry.breaking.length > 0 ? "breaking-group" : ""}><h4><span class="change-icon breaking" aria-hidden="true">!</span> Breaking changes</h4>{entry.breaking.length > 0 ? <ul>{entry.breaking.map((item) => <li>{item}</li>)}</ul> : <p class="empty-change">No breaking changes declared.</p>}</section>
-            <section><h4><span class="change-icon migration" aria-hidden="true">→</span> Migration</h4><ul>{entry.migration.map((item) => <li>{item}</li>)}</ul></section>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
+    <div class="split-heading"><div><p class="eyebrow">Complete timeline</p><h2>Core and Agent,<br />side by side.</h2></div><p>Each product now has its own newest-first lane, so paired releases can be compared without moving back and forth through one mixed timeline. “Tag only” means no supported downloadable GitHub release was published.</p></div>
+    <div class="changelog-columns">
+      {products.map((product) => {
+        const entries = changelog.filter((entry) => entry.product === product);
+        const productSlug = product.toLowerCase();
 
-  <section class="section shell release-index" aria-label="Product release indexes">
-    <article id="core-releases" class="prose-card"><p class="eyebrow">Core index</p><h3>Core releases</h3><ul>{changelog.filter((entry) => entry.product === "Core").map((entry) => <li><a href={`#core-${entry.version.replaceAll(".", "-")}`}>{entry.version}</a> <span>{entry.availability}</span></li>)}</ul></article>
-    <article id="agent-releases" class="prose-card"><p class="eyebrow">Agent index</p><h3>Agent releases</h3><ul>{changelog.filter((entry) => entry.product === "Agent").map((entry) => <li><a href={`#agent-${entry.version.replaceAll(".", "-")}`}>{entry.version}</a> <span>{entry.availability}</span></li>)}</ul></article>
+        return (
+          <section class={`changelog-column product-${productSlug}`} id={`${productSlug}-releases`} aria-labelledby={`${productSlug}-releases-title`}>
+            <header class="changelog-column-header">
+              <div><p>{product === "Core" ? "Authoritative foundation" : "Optional user-mode companion"}</p><h3 id={`${productSlug}-releases-title`}>Certael {product}</h3></div>
+              <span>{entries.length} releases</span>
+            </header>
+            <nav class="release-version-nav" aria-label={`${product} release versions`}>
+              {entries.map((entry) => <a href={`#${productSlug}-${entry.version.replaceAll(".", "-")}`}>{entry.version}</a>)}
+            </nav>
+            <div class="changelog-list">
+              {entries.map((entry) => (
+                <article class={`changelog-entry product-${productSlug}`} id={`${productSlug}-${entry.version.replaceAll(".", "-")}`}>
+                  <header class="changelog-entry-header">
+                    <div>
+                      <div class="changelog-meta"><span>{entry.product}</span><time datetime={entry.date}>{entry.date}</time><span class={`availability ${entry.availability}`}>{entry.availability === "published" ? "Published release" : "Tag only"}</span></div>
+                      <h3>{entry.version}</h3>
+                      <p>{entry.summary}</p>
+                    </div>
+                    <div class="changelog-links"><a href={entry.releaseUrl}>View {entry.availability === "published" ? "release" : "tag"} ↗</a>{entry.compareUrl && <a href={entry.compareUrl}>Source comparison ↗</a>}</div>
+                  </header>
+                  <div class="change-groups">
+                    <section><h4><span class="change-icon implemented" aria-hidden="true">+</span> Implemented</h4><ul>{entry.implemented.map((item) => <li>{item}</li>)}</ul></section>
+                    <section><h4><span class="change-icon fixes" aria-hidden="true">✓</span> Fixes</h4>{entry.fixes.length > 0 ? <ul>{entry.fixes.map((item) => <li>{item}</li>)}</ul> : <p class="empty-change">No fixes declared for this update.</p>}</section>
+                    <section class={entry.breaking.length > 0 ? "breaking-group" : ""}><h4><span class="change-icon breaking" aria-hidden="true">!</span> Breaking changes</h4>{entry.breaking.length > 0 ? <ul>{entry.breaking.map((item) => <li>{item}</li>)}</ul> : <p class="empty-change">No breaking changes declared.</p>}</section>
+                    <section><h4><span class="change-icon migration" aria-hidden="true">→</span> Migration</h4><ul>{entry.migration.map((item) => <li>{item}</li>)}</ul></section>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
   </section>
 
   <section class="section shell" id="upgrade-policy">

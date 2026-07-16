@@ -158,6 +158,17 @@ pre { overflow-x: auto; margin: 1.5rem 0; padding: 1.25rem; border: 1px solid va
 .changelog-jump { display: flex; flex-wrap: wrap; gap: .65rem; margin-bottom: 1rem; }
 .changelog-jump a { padding: .65rem .8rem; border: 1px solid var(--line); border-radius: 8px; color: var(--subtle); background: var(--panel); text-decoration: none; font: .65rem var(--font-mono); text-transform: uppercase; }
 .changelog-jump a:hover { border-color: var(--violet); color: var(--text); }
+.changelog-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+.changelog-column { min-width: 0; scroll-margin-top: 7rem; }
+.changelog-column-header { position: sticky; top: 4.8rem; z-index: 4; display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; padding: 1.1rem 1.25rem; border: 1px solid var(--line-bright); border-radius: 12px; background: rgb(15 15 20 / .94); box-shadow: 0 14px 30px rgb(0 0 0 / .28); backdrop-filter: blur(16px); }
+.changelog-column-header p { margin: 0 0 .35rem; color: var(--muted); font: .58rem var(--font-mono); letter-spacing: .07em; text-transform: uppercase; }
+.changelog-column-header h3 { margin: 0; font-size: 1.45rem; }
+.changelog-column-header > span { flex: none; color: var(--muted); font: .6rem var(--font-mono); text-transform: uppercase; }
+.changelog-column.product-core .changelog-column-header { box-shadow: inset 3px 0 var(--violet), 0 14px 30px rgb(0 0 0 / .28); }
+.changelog-column.product-agent .changelog-column-header { box-shadow: inset 3px 0 var(--blue), 0 14px 30px rgb(0 0 0 / .28); }
+.release-version-nav { display: flex; gap: .45rem; margin-bottom: .75rem; padding-bottom: .25rem; overflow-x: auto; scrollbar-width: thin; }
+.release-version-nav a { flex: none; padding: .45rem .55rem; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); background: var(--panel); font: .56rem var(--font-mono); text-decoration: none; }
+.release-version-nav a:hover { border-color: var(--line-bright); color: var(--text); }
 .changelog-list { display: grid; gap: 1.25rem; }
 .changelog-entry { scroll-margin-top: 7rem; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; background: var(--panel); }
 .changelog-entry.product-core { box-shadow: inset 3px 0 var(--violet); }
@@ -187,9 +198,12 @@ pre { overflow-x: auto; margin: 1.5rem 0; padding: 1.25rem; border: 1px solid va
 .change-icon.migration { color: var(--blue); }
 .breaking-group { background: rgb(255 111 127 / .035); }
 .breaking-group h4 { color: #ffa0aa; }
-.release-index { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-.release-index li { display: flex; justify-content: space-between; gap: 1rem; }
-.release-index li span { font: .6rem var(--font-mono); text-transform: uppercase; }
+.changelog-columns .changelog-entry-header { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.5rem; }
+.changelog-columns .changelog-links { flex-flow: row wrap; align-items: flex-start; }
+.changelog-columns .change-groups { grid-template-columns: 1fr; }
+.changelog-columns .change-groups section { min-height: 0; padding: 1.35rem 1.5rem; border-right: 0; border-bottom: 1px solid var(--line); }
+.changelog-columns .change-groups section:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+.changelog-columns .change-groups section:last-child { border-bottom: 0; }
 
 @media (max-width: 980px) {
   .hero { min-height: auto; }
@@ -220,7 +234,9 @@ pre { overflow-x: auto; margin: 1.5rem 0; padding: 1.25rem; border: 1px solid va
   .flow article:last-child { border-bottom: 1px solid var(--line); }
   .truth-table { display: block; overflow-x: auto; }
   .setup-warning { grid-template-columns: 1fr; }
-  .changelog-entry-header, .change-groups, .release-index { grid-template-columns: 1fr; }
+  .changelog-columns, .changelog-entry-header, .change-groups { grid-template-columns: 1fr; }
+  .changelog-column-header { position: static; }
+  .changelog-column + .changelog-column { margin-top: 2rem; }
   .changelog-links { align-items: flex-start; }
   .change-groups section { border-right: 0; border-bottom: 1px solid var(--line); }
   .change-groups section:nth-last-child(2) { border-bottom: 1px solid var(--line); }
