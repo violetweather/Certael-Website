@@ -11,6 +11,14 @@ import CapabilityGrid from "../components/CapabilityGrid.astro";
     <a class="button primary" href="https://github.com/violetweather/Certael/blob/main/docs/acceptance-status.md">Full acceptance record ↗</a>
   </section>
   <section class="section-tight shell"><CapabilityGrid /></section>
+  <section class="section shell" id="version-support">
+    <div class="split-heading"><div><p class="eyebrow">Version policy</p><h2>Signed support decisions.</h2></div><p>Core and Agent verify a short-lived policy signed by a dedicated offline key. A filename or client claim cannot turn an unsupported build into a supported one.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Allowed</h3><ul><li><strong>Supported:</strong> current recommended release.</li><li><strong>Deprecated:</strong> protected launch remains available while operators schedule the recommended update.</li></ul></article>
+      <article class="prose-card"><h3>Denied for new protected sessions</h3><ul><li><strong>Update required:</strong> version or protocol is too old.</li><li><strong>Revoked:</strong> exact release was withdrawn.</li><li><strong>Unknown:</strong> product or protocol is not recognized.</li><li><strong>Indeterminate:</strong> signed policy is unavailable or expired.</li></ul></article>
+    </div>
+    <div class="callout"><strong>Safe degraded mode:</strong> a compatibility-feed outage does not kill an already admitted match. It prevents new protected sessions until policy is trustworthy again. Explicit session and build revocations still apply.</div>
+  </section>
   <section class="section shell">
     <div class="split-heading"><div><p class="eyebrow">Outstanding gates</p><h2>What remains.</h2></div><p>The current alpha is meaningful security engineering—not a universal cheat detector or completed production certification.</p></div>
     <div class="prose-grid">
