@@ -17,6 +17,56 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    product: "Core",
+    version: "v0.3.0-alpha.2",
+    date: "2026-07-16",
+    availability: "published",
+    summary: "Fixes canonical Agent health admission across Godot, Unity, and Unreal and makes Godot channel failures actionable.",
+    releaseUrl: "https://github.com/violetweather/Certael/releases/tag/v0.3.0-alpha.2",
+    compareUrl: "https://github.com/violetweather/Certael/compare/v0.3.0-alpha.1...v0.3.0-alpha.2",
+    implemented: [
+      "Canonical health decoding that accepts protobuf's omitted zero timestamp while rejecting an explicitly encoded default value.",
+      "Detailed Godot admission errors for channel closure, failed writes, invalid frame types, noncanonical health, and Agent rejection reasons.",
+      "Correlated verbose admission diagnostics containing game PID, build ID, and outer frame length without logging signed payloads.",
+      "Idempotent Godot client initialization that preserves the one inherited Agent channel owner.",
+    ],
+    fixes: [
+      "A valid initial Agent ready message no longer fails as AGENT_HEALTH_INVALID merely because last_report_at_unix is canonically omitted at zero.",
+      "The same protobuf-default decoding defect is fixed in the Godot, Unity, and Unreal adapters.",
+      "Godot no longer replaces and destroys its native Agent channel when initialize is called repeatedly on the same client.",
+    ],
+    breaking: [],
+    migration: [
+      "Replace the complete engine package with Core v0.3.0-alpha.2; do not copy only the GDExtension or one runtime DLL.",
+      "For Godot, close the editor, replace addons/certael, delete the .godot cache, and reopen the project.",
+      "Use one persistent CertaelClient autoload and start a fresh Agent process and protected session.",
+    ],
+  },
+  {
+    product: "Agent",
+    version: "v0.3.0-alpha.3",
+    date: "2026-07-16",
+    availability: "published",
+    summary: "Returns structured admission failures and adds safe cross-process correlation for protected-launch diagnosis.",
+    releaseUrl: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.3.0-alpha.3",
+    compareUrl: "https://github.com/violetweather/Certael-Agent/compare/v0.3.0-alpha.2...v0.3.0-alpha.3",
+    implemented: [
+      "Canonical rejection health responses for admission timeout, channel failure, wrong frame type, bundle rejection, registration mismatch, manifest verification, build mismatch, and required updates.",
+      "Local admission logs correlate Agent PID, game PID, build ID, payload length, and accepted session ID without logging signed material.",
+      "Compatibility and installer metadata for the v0.3.0-alpha.3 package set.",
+    ],
+    fixes: [
+      "Engine adapters can now distinguish an Agent rejection from a missing or malformed health response whenever the return channel remains usable.",
+      "Protected-launch failures no longer rely exclusively on a terminal error after the Agent closes the session.",
+    ],
+    breaking: [],
+    migration: [
+      "Install the complete Agent v0.3.0-alpha.3 archive and pair it with Core v0.3.0-alpha.2 or newer.",
+      "Existing protocol-v1 policies, grants, registrations, manifests, trust stores, and probe ABI remain compatible.",
+      "Start a new Agent process and protected session after updating.",
+    ],
+  },
+  {
     product: "Agent",
     version: "v0.3.0-alpha.2",
     date: "2026-07-15",
