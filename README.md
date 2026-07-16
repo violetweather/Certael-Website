@@ -9,7 +9,7 @@ engineering iterations, implementations, fixes, breaking changes, and migration
 guidance. Add its entry in the same change that introduces a future public tag.
 
 The currently documented pre-1.0 release pair is Certael Core
-`v0.2.0-alpha.1` with Certael Agent `v0.2.0-alpha.1`.
+`v0.3.0-alpha.1` with Certael Agent `v0.3.0-alpha.2`.
 
 ## Local development
 

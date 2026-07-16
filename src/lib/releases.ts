@@ -42,8 +42,8 @@ export function missingReleaseAssets(product: "Core" | "Agent", assetNames: stri
 export const fallbackReleases: ReleaseInfo[] = [
   {
     product: "Core",
-    tag: "v0.2.0-alpha.1",
-    url: "https://github.com/violetweather/Certael/releases/tag/v0.2.0-alpha.1",
+    tag: "v0.3.0-alpha.1",
+    url: "https://github.com/violetweather/Certael/releases/tag/v0.3.0-alpha.1",
     publishedAt: "2026-07-15",
     prerelease: true,
     assets: [],
@@ -51,8 +51,8 @@ export const fallbackReleases: ReleaseInfo[] = [
   },
   {
     product: "Agent",
-    tag: "v0.2.0-alpha.1",
-    url: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.2.0-alpha.1",
+    tag: "v0.3.0-alpha.2",
+    url: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.3.0-alpha.2",
     publishedAt: "2026-07-15",
     prerelease: true,
     assets: [],
