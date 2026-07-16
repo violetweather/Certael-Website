@@ -18,6 +18,65 @@ export interface ChangelogEntry {
 export const changelog: ChangelogEntry[] = [
   {
     product: "Core",
+    version: "v0.3.0-alpha.1",
+    date: "2026-07-15",
+    availability: "published",
+    summary: "Adds signed lifecycle control for supported, deprecated, required-update, and withdrawn Certael stacks.",
+    releaseUrl: "https://github.com/violetweather/Certael/releases/tag/v0.3.0-alpha.1",
+    compareUrl: "https://github.com/violetweather/Certael/compare/v0.2.0-alpha.1...v0.3.0-alpha.1",
+    implemented: [
+      "Offline-key-signed, deterministic compatibility manifests with bounded validity and exact-version revocations.",
+      "Fail-closed Core admission decisions for Supported, Deprecated, UpdateRequired, Revoked, Unknown, and Indeterminate states.",
+      "Signed build binding for Core SDK, engine adapter, C ABI, action protocol, Agent protocol, and probe ABI versions.",
+      "Compatibility status API, scoped operator check, OpenTelemetry decision metrics, and certaelctl sign/check commands.",
+      "A bounded degraded mode that preserves already admitted matches during a compatibility control-plane outage.",
+    ],
+    fixes: [
+      "Prevents a game server or package filename from self-declaring an obsolete component supported.",
+      "Prevents unknown future protocol versions from silently downgrading into an older acceptance path.",
+    ],
+    breaking: [
+      "Protected whole-build manifests now require seven SDK, adapter, ABI, and protocol binding fields.",
+      "Production API startup requires a signed compatibility manifest and offline public trust key.",
+      "Build manifests created before v0.3.0-alpha.1 are rejected and must be regenerated.",
+    ],
+    migration: [
+      "Create a dedicated offline compatibility key, sign the initial policy, and configure its public key on Core hosts.",
+      "Replace the complete engine package, regenerate every protected build manifest, and register the new signed bytes.",
+      "Deploy Agent v0.3.0-alpha.1 and start new protected sessions; do not reuse alpha-2 manifests or grants.",
+    ],
+  },
+  {
+    product: "Agent",
+    version: "v0.3.0-alpha.1",
+    date: "2026-07-15",
+    availability: "published",
+    summary: "Turns Core's signed update-required decision into a safe, visible automatic Agent update flow.",
+    releaseUrl: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.3.0-alpha.1",
+    compareUrl: "https://github.com/violetweather/Certael-Agent/compare/v0.2.0-alpha.1...v0.3.0-alpha.1",
+    implemented: [
+      "Cross-language verification and evaluation of Certael's offline-signed compatibility manifest.",
+      "Automatic TUF verification and immutable staging when a signed launch policy requires a newer Agent.",
+      "Live update_required, updating, update_ready, and update_failed states with relaunch and recovery guidance.",
+      "Independent compatibility-check CLI for product, version, and protocol decisions.",
+      "Verification of the SDK, adapter, ABI, action, Agent, and probe versions bound into the signed game manifest.",
+    ],
+    fixes: [
+      "Terminates a child game cleanly when protected admission fails instead of leaving it outside the Agent lifecycle.",
+      "Makes required updates visible to the GUI rather than returning only a generic launch-bundle error.",
+    ],
+    breaking: [
+      "Agent v0.3 requires the expanded signed whole-build manifest emitted by Core v0.3.",
+      "The old Core v0.2 / Agent v0.2 protected pair is below the new minimum for newly registered v0.3 builds.",
+    ],
+    migration: [
+      "Install the complete Agent v0.3 package and keep its launcher, updater state, probe, and platform binary together.",
+      "Update each signed game registration if its release channel or TUF endpoints changed.",
+      "Relaunch after the Agent reports update_ready; use rollback only to a still-supported signed version.",
+    ],
+  },
+  {
+    product: "Core",
     version: "v0.2.0-alpha.1",
     date: "2026-07-15",
     availability: "published",
