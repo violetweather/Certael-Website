@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { changelog } from "../data/changelog";
+
+const publishedCount = changelog.filter((entry) => entry.availability === "published").length;
+const breakingCount = changelog.filter((entry) => entry.breaking.length > 0).length;
+---
+
+<BaseLayout title="Certael changelog — Core and Agent release history" description="Every Certael Core and Agent update, including implementations, fixes, breaking changes, and migration instructions.">
+  <section class="page-hero shell">
+    <p class="eyebrow">Release history</p>
+    <h1>Every update.<br /><span class="gradient-text">No hidden breaks.</span></h1>
+    <p class="lede">A complete history of public Core and Agent tags. Each entry separates new implementations, fixes, breaking changes, and the steps developers need to migrate safely.</p>
+    <div class="changelog-stats" aria-label="Changelog summary">
+      <span><strong>{changelog.length}</strong> tracked tags</span>
+      <span><strong>{publishedCount}</strong> published releases</span>
+      <span><strong>{breakingCount}</strong> updates with breaking changes</span>
+    </div>
+  </section>
+
+  <section class="section-tight shell">
+    <nav class="changelog-jump" aria-label="Filter changelog by product">
+      <a href="#all-releases">All releases</a>
+      <a href="#core-releases">Core</a>
+      <a href="#agent-releases">Agent</a>
+      <a href="#upgrade-policy">Upgrade policy</a>
+    </nav>
+    <div class="callout"><strong>Pre-1.0 rule:</strong> an alpha tag can contain breaking changes. Install Core and Agent as the documented pair, replace complete packages, and read both products’ entries before upgrading a protected game.</div>
+  </section>
+
+  <section class="section shell" id="all-releases">
+    <div class="split-heading"><div><p class="eyebrow">Complete timeline</p><h2>Newest first.</h2></div><p>“Tag only” means source was tagged during release engineering but no supported downloadable GitHub release was published. Those entries remain here so the historical record is complete.</p></div>
+    <div class="changelog-list">
+      {changelog.map((entry) => (
+        <article class={`changelog-entry product-${entry.product.toLowerCase()}`} id={`${entry.product.toLowerCase()}-${entry.version.replaceAll(".", "-")}`}>
+          <header class="changelog-entry-header">
+            <div>
+              <div class="changelog-meta"><span>{entry.product}</span><time datetime={entry.date}>{entry.date}</time><span class={`availability ${entry.availability}`}>{entry.availability === "published" ? "Published release" : "Tag only"}</span></div>
+              <h3>{entry.version}</h3>
+              <p>{entry.summary}</p>
+            </div>
+            <div class="changelog-links"><a href={entry.releaseUrl}>View {entry.availability === "published" ? "release" : "tag"} ↗</a>{entry.compareUrl && <a href={entry.compareUrl}>Source comparison ↗</a>}</div>
+          </header>
+          <div class="change-groups">
+            <section><h4><span class="change-icon implemented" aria-hidden="true">+</span> Implemented</h4><ul>{entry.implemented.map((item) => <li>{item}</li>)}</ul></section>
+            <section><h4><span class="change-icon fixes" aria-hidden="true">✓</span> Fixes</h4>{entry.fixes.length > 0 ? <ul>{entry.fixes.map((item) => <li>{item}</li>)}</ul> : <p class="empty-change">No fixes declared for this update.</p>}</section>
+            <section class={entry.breaking.length > 0 ? "breaking-group" : ""}><h4><span class="change-icon breaking" aria-hidden="true">!</span> Breaking changes</h4>{entry.breaking.length > 0 ? <ul>{entry.breaking.map((item) => <li>{item}</li>)}</ul> : <p class="empty-change">No breaking changes declared.</p>}</section>
+            <section><h4><span class="change-icon migration" aria-hidden="true">→</span> Migration</h4><ul>{entry.migration.map((item) => <li>{item}</li>)}</ul></section>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section shell release-index" aria-label="Product release indexes">
+    <article id="core-releases" class="prose-card"><p class="eyebrow">Core index</p><h3>Core releases</h3><ul>{changelog.filter((entry) => entry.product === "Core").map((entry) => <li><a href={`#core-${entry.version.replaceAll(".", "-")}`}>{entry.version}</a> <span>{entry.availability}</span></li>)}</ul></article>
+    <article id="agent-releases" class="prose-card"><p class="eyebrow">Agent index</p><h3>Agent releases</h3><ul>{changelog.filter((entry) => entry.product === "Agent").map((entry) => <li><a href={`#agent-${entry.version.replaceAll(".", "-")}`}>{entry.version}</a> <span>{entry.availability}</span></li>)}</ul></article>
+  </section>
+
+  <section class="section shell" id="upgrade-policy">
+    <div class="split-heading"><div><p class="eyebrow">Maintenance contract</p><h2>How this page stays useful.</h2></div><p>Every future public tag must add a changelog entry before the website deploys.</p></div>
+    <div class="prose-grid">
+      <article class="prose-card"><h3>Every entry must state</h3><ul><li>What was implemented</li><li>What defects were fixed</li><li>Every incompatible API, protocol, storage, packaging, or operational change</li><li>Exact migration or rollback guidance</li></ul></article>
+      <article class="prose-card"><h3>Source of truth</h3><p>This page is a developer-friendly release index. The signed artifacts, repository tags, security contracts, compatibility manifests, database migrations, and engine API documentation remain normative.</p></article>
+    </div>
+  </section>
+</BaseLayout>

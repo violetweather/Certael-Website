@@ -4,6 +4,10 @@ Source repository for Certael's public GitHub Pages site. The site introduces [C
 
 The website is a curated guide. The Core and Agent security contracts remain normative.
 
+The changelog tracks every public Core and Agent tag, including tag-only release
+engineering iterations, implementations, fixes, breaking changes, and migration
+guidance. Add its entry in the same change that introduces a future public tag.
+
 The currently documented pre-1.0 release pair is Certael Core
 `v0.2.0-alpha.1` with Certael Agent `v0.2.0-alpha.1`.
 
