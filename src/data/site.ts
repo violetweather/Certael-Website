@@ -22,8 +22,8 @@ export interface EngineGuide {
 
 export const currentReleasePair = {
   core: {
-    tag: "v0.3.0-alpha.2",
-    url: "https://github.com/violetweather/Certael/releases/tag/v0.3.0-alpha.2",
+    tag: "v0.4.0-alpha.1",
+    url: "https://github.com/violetweather/Certael/releases/tag/v0.4.0-alpha.1",
   },
   agent: {
     tag: "v0.3.0-alpha.3",
@@ -122,7 +122,7 @@ export const engines: EngineGuide[] = [
     slug: "godot",
     name: "Godot",
     version: "4.7",
-    artifact: "certael-godot-4.7-v0.3.0-alpha.2.zip",
+    artifact: "certael-godot-4.7-v0.4.0-alpha.1.zip",
     installPath: "Extract into the project root, then enable Certael under Project Settings → Plugins.",
     language: "gdscript",
     snippet: `if not Certael.initialize():\n    push_error("Certael runtime unavailable")\n    return\n\ngame_network.request_certael_ticket(\n    Certael.create_session_public_key()\n)`,
@@ -132,7 +132,7 @@ export const engines: EngineGuide[] = [
     slug: "unity",
     name: "Unity",
     version: "6000.3",
-    artifact: "certael-unity-6000.3-v0.3.0-alpha.2.tgz",
+    artifact: "certael-unity-6000.3-v0.4.0-alpha.1.tgz",
     installPath: "Add the downloaded tarball through Package Manager → Add package from tarball.",
     language: "csharp",
     snippet: `using Certael.Unity;\n\nprivate readonly CertaelClient certael = new();\n\npublic void Begin() => network.RequestCertaelTicket(\n    certael.CreateSessionPublicKey()\n);`,
@@ -142,7 +142,7 @@ export const engines: EngineGuide[] = [
     slug: "unreal",
     name: "Unreal Engine",
     version: "5.8",
-    artifact: "certael-unreal-5.8-v0.3.0-alpha.2.zip",
+    artifact: "certael-unreal-5.8-v0.4.0-alpha.1.zip",
     installPath: "Extract Certael into <Project>/Plugins/Certael and enable the plugin.",
     language: "cpp",
     snippet: `UCertaelSubsystem* Certael =\n    GetGameInstance()->GetSubsystem<UCertaelSubsystem>();\n\nTArray<uint8> PublicKey =\n    Certael->CreateSessionPublicKey();\nGameNetwork->RequestCertaelTicket(PublicKey);`,
