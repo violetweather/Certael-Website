@@ -18,6 +18,32 @@ export interface ChangelogEntry {
 export const changelog: ChangelogEntry[] = [
   {
     product: "Core",
+    version: "v0.4.0-alpha.1",
+    date: "2026-07-17",
+    availability: "published",
+    summary: "Introduces Certael's deployable security-platform layer: durable evidence, operator cases, economy/collusion analysis, backend integrations, Node/WASM extensibility, and fenced regional continuity.",
+    releaseUrl: "https://github.com/violetweather/Certael/releases/tag/v0.4.0-alpha.1",
+    compareUrl: "https://github.com/violetweather/Certael/compare/v0.3.0-alpha.2...v0.4.0-alpha.1",
+    implemented: [
+      "Transactional PostgreSQL outbox delivery through JetStream, durable analytics consumers, ClickHouse projections, replay, quarantine, and tenant-scoped processing receipts.",
+      "Explainable evidence and case management with the accessible React operator console, immutable audit history, privacy export, and bounded operator-approved actions.",
+      "Canonical economy ledger and item lineage events plus deterministic 7/30/90-day economy and relationship protections with exact replay evidence.",
+      "Steam, EOS, PlayFab, and Agones integration packages; a Node 22 TypeScript SDK; signed sandboxed WASM rules; and distinct identity versus genuine attestation providers.",
+      "Exclusive regional ownership leases, fencing epochs, signed single-use transfer grants, and audited forced failover through Certael Coordinator.",
+    ],
+    fixes: [
+      "Accepted gameplay mutations can no longer depend on an in-transaction network call to preserve their security event.",
+      "Worker crashes, duplicate delivery, broker outages, and rebuildable analytics projections now have explicit recovery paths.",
+    ],
+    breaking: [],
+    migration: [
+      "Action protocol v1 and Agent v0.3.0-alpha.3 remain compatible; new capabilities are disabled or shadowed until signed configuration enables them.",
+      "Apply additive Core migrations 017 through 020 and provision NATS JetStream and ClickHouse before enabling workers.",
+      "Provision a separate Coordinator control PostgreSQL database and signing key only when enabling multi-region continuity.",
+    ],
+  },
+  {
+    product: "Core",
     version: "v0.3.0-alpha.2",
     date: "2026-07-16",
     availability: "published",
