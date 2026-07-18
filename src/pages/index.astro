@@ -19,16 +19,11 @@ const href = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
         <p class="lede">Certael protects the request path for Godot, Unity, and Unreal games. Core validates authoritative actions. The optional Agent adds signed user-mode integrity evidence.</p>
         <div class="button-row">
           <a class="button primary" href={href("get-started/")}>Install Certael <span aria-hidden="true">↗</span></a>
-          <a class="button secondary" href="#architecture">Explore architecture</a>
+          <a class="button secondary" href={href("docs/")}>Read the docs</a>
         </div>
       </div>
       <div class="hero-visual">
         <SystemMap client:visible />
-        <div class="hero-stats" aria-label="Certael attributes">
-          <div class="hero-stat"><strong>3</strong><span>Engines</span></div>
-          <div class="hero-stat"><strong>User mode</strong><span>Agent</span></div>
-          <div class="hero-stat"><strong>Server</strong><span>Authority</span></div>
-        </div>
       </div>
     </div>
   </section>

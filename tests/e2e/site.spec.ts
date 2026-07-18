@@ -1,7 +1,12 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const routes = ["", "core/", "agent/", "engines/", "engines/godot/", "engines/unity/", "engines/unreal/", "get-started/", "changelog/", "security/", "status/"];
+const routes = [
+  "", "core/", "agent/", "engines/", "engines/godot/", "engines/unity/", "engines/unreal/",
+  "get-started/", "changelog/", "security/", "status/", "docs/", "docs/installation/",
+  "docs/console-auth0/", "docs/evidence-and-cases/", "docs/unreal-blueprints/",
+  "docs/typescript-server/", "docs/wasm-rules/", "docs/multi-region/",
+];
 
 for (const route of routes) {
   test(`${route || "home"} renders without serious accessibility violations`, async ({ page }) => {
@@ -19,6 +24,19 @@ test("setup selector changes the generated guide", async ({ page }) => {
   await page.getByRole("button", { name: "Core + Agent" }).click();
   await expect(page.getByRole("heading", { name: /certael-unity/i })).toBeVisible();
   await expect(page.getByText(/register the game’s signed public trust material/)).toBeVisible();
+});
+
+test("documentation search filters guides and exposes an empty state", async ({ page }) => {
+  await page.goto("docs/");
+  const search = page.getByRole("searchbox", { name: "Search documentation" });
+  await expect(search).toBeVisible();
+  await search.fill("Auth0");
+  await expect(page.getByRole("link", { name: /Console access with Auth0/ })).toBeVisible();
+  await expect(page.getByText("1 guide shown")).toBeVisible();
+  await search.fill("nothing-matches-this-query");
+  await expect(page.getByRole("heading", { name: "No matching guides" })).toBeVisible();
+  await page.getByRole("button", { name: "Clear search" }).click();
+  await expect(page.getByText("15 guides shown")).toBeVisible();
 });
 
 test("changelog exposes every change category and both products", async ({ page }) => {

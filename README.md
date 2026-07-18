@@ -2,14 +2,16 @@
 
 Source repository for Certael's public GitHub Pages site. The site introduces [Certael Core](https://github.com/violetweather/Certael), the optional [Certael Agent](https://github.com/violetweather/Certael-Agent), and the supported Godot, Unity, and Unreal installation paths.
 
-The website is a curated guide. The Core and Agent security contracts remain normative.
+The website hosts the complete public getting-started, operations, integration,
+and extension guides. Core and Agent security contracts in their source
+repositories remain normative when a guide and an implementation differ.
 
 The changelog tracks every public Core and Agent tag, including tag-only release
 engineering iterations, implementations, fixes, breaking changes, and migration
 guidance. Add its entry in the same change that introduces a future public tag.
 
-The currently documented pre-1.0 release pair is Certael Core
-`v0.3.0-alpha.2` with Certael Agent `v0.3.0-alpha.3`.
+The documentation is versioned with the Website release and names its supported
+Core and Agent pair in `src/data/site.ts`.
 
 ## Local development
 
