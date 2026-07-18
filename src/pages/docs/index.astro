@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { docCategories, docs } from "../../data/docs";
+const base = import.meta.env.BASE_URL;
+const href = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
+---
+
+<BaseLayout title="Certael Documentation" description="Install, integrate, operate, and extend the complete Certael security platform.">
+  <section class="docs-landing shell">
+    <header class="docs-landing-header">
+      <p class="section-label">Documentation</p>
+      <h1>From first install to bounded enforcement.</h1>
+      <p>Complete guides for Core, Agent, the operator console, engine adapters, TypeScript, WASM, economy analysis, and regional continuity.</p>
+      <label class="docs-search">
+        <span>Search documentation</span>
+        <input id="docs-search" type="search" placeholder="Try “Auth0”, “Steam”, or “Blueprints”" autocomplete="off" aria-describedby="docs-search-status" />
+      </label>
+      <p id="docs-search-status" class="search-status" aria-live="polite">{docs.length} guides shown</p>
+    </header>
+
+    <div id="docs-directory" class="docs-directory">
+      {docCategories.map((category) => (
+        <section class="docs-category" data-category={category}>
+          <header><h2>{category}</h2><span>{docs.filter((doc) => doc.category === category).length} guides</span></header>
+          <div class="docs-links">
+            {docs.filter((doc) => doc.category === category).map((doc) => (
+              <a href={href(`docs/${doc.slug}/`)} data-search={`${doc.title} ${doc.summary} ${doc.keywords.join(" ")}`.toLowerCase()}>
+                <strong>{doc.title}</strong><span>{doc.summary}</span><span class="read-guide">Read guide <span aria-hidden="true">→</span></span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+      <div id="docs-empty" class="docs-empty" hidden>
+        <h2>No matching guides</h2>
+        <p>Try a component, provider, engine, or workflow name.</p>
+        <button type="button" id="clear-docs-search">Clear search</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const input = document.querySelector<HTMLInputElement>("#docs-search");
+    const links = [...document.querySelectorAll<HTMLElement>(".docs-links > a")];
+    const categories = [...document.querySelectorAll<HTMLElement>(".docs-category")];
+    const empty = document.querySelector<HTMLElement>("#docs-empty");
+    const status = document.querySelector<HTMLElement>("#docs-search-status");
+    const clear = document.querySelector<HTMLButtonElement>("#clear-docs-search");
+    const update = () => {
+      const query = input?.value.trim().toLowerCase() ?? "";
+      let visible = 0;
+      links.forEach((link) => {
+        const match = !query || (link.dataset.search ?? "").includes(query);
+        link.hidden = !match;
+        if (match) visible += 1;
+      });
+      categories.forEach((category) => {
+        category.hidden = ![...category.querySelectorAll<HTMLElement>(".docs-links > a")].some((link) => !link.hidden);
+      });
+      if (empty) empty.hidden = visible !== 0;
+      if (status) status.textContent = `${visible} ${visible === 1 ? "guide" : "guides"} shown`;
+    };
+    input?.addEventListener("input", update);
+    clear?.addEventListener("click", () => { if (input) { input.value = ""; input.focus(); update(); } });
+  </script>
+</BaseLayout>

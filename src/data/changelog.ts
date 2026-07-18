@@ -18,6 +18,56 @@ export interface ChangelogEntry {
 export const changelog: ChangelogEntry[] = [
   {
     product: "Core",
+    version: "v0.4.0-alpha.2",
+    date: "2026-07-18",
+    availability: "published",
+    summary: "Makes the post-1.0 platform installable and operational with a native suite setup app, complete Unreal Blueprint APIs, finite case workflows, configurable metadata, and production-backed analytics and continuity.",
+    releaseUrl: "https://github.com/violetweather/Certael/releases/tag/v0.4.0-alpha.2",
+    compareUrl: "https://github.com/violetweather/Certael/compare/v0.4.0-alpha.1...v0.4.0-alpha.2",
+    implemented: [
+      "Native Windows, Linux, and macOS setup applications plus a verbose CLI with signed suite verification, resumable installs, diagnostics, rollback, and redacted support bundles.",
+      "Complete Unreal Engine 5.8 Blueprint surfaces for sessions, protected actions, Agent challenge/report flow, typed errors, asynchronous nodes, and game-thread-safe delegates.",
+      "Case metadata schemas, game-scoped categories, metadata-aware search, rule and signal filters, deterministic sorting, cursor pagination, and audited console settings.",
+      "Deployable economy, relationship, WASM, platform-proof, regional-continuity, and provider-adapter paths backed by the supported self-hosted stores.",
+    ],
+    fixes: [
+      "The release workflow now validates the complete .NET solution correctly across Windows, Linux, and macOS.",
+      "Coordinator persistence accepts PostgreSQL UTC timestamps and disposes active readers before rejected-grant transactions unwind.",
+      "The Auth0 console bootstrap loads its generated development certificate with a macOS-compatible key-storage mode.",
+    ],
+    breaking: [],
+    migration: [
+      "Action protocol v1 and existing engine clients remain valid; Agent v0.4.0-alpha.1 is the recommended companion release.",
+      "Apply additive database migrations through 025 before enabling the new case settings and analytical projections.",
+      "Use the platform-specific Certael Setup archive for a guided install, or run certaelctl with verbose output for automation.",
+    ],
+  },
+  {
+    product: "Agent",
+    version: "v0.4.0-alpha.1",
+    date: "2026-07-18",
+    availability: "published",
+    summary: "Adds the publisher-branded protected-launch splash and a signed, truthful runtime-status contract from local verification through authoritative server admission.",
+    releaseUrl: "https://github.com/violetweather/Certael-Agent/releases/tag/v0.4.0-alpha.1",
+    compareUrl: "https://github.com/violetweather/Certael-Agent/compare/v0.3.0-alpha.3...v0.4.0-alpha.1",
+    implemented: [
+      "Signed publisher icon and optional cinematic PNG artwork with verified paths, digests, dimensions, decoded memory bounds, and accessible responsive layouts.",
+      "Per-attempt launch milestones for registration loading, registered-file hashing, startup, server admission, signed bundle verification, and protected-session readiness.",
+      "Signed repair executable and offline-play controls with failure views that expose only explicitly permitted actions.",
+      "Debug-only viewport, zoom, milestone, failure, and screenshot controls for publisher QA.",
+    ],
+    fixes: [
+      "Stale status files cannot advance or complete a newer launch attempt.",
+      "Protected readiness is shown only after authoritative admission, bundle verification, build matching, and ready health.",
+    ],
+    breaking: [],
+    migration: [
+      "Install the complete Agent v0.4.0-alpha.1 archive and update publisher registrations when adding splash artwork, repair, or offline-play controls.",
+      "Probe ABI v1, Agent protocol v1, and existing action protocol v1 integrations remain compatible.",
+    ],
+  },
+  {
+    product: "Core",
     version: "v0.4.0-alpha.1",
     date: "2026-07-17",
     availability: "published",

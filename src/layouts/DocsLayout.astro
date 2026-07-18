@@ -1,0 +1,67 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { docCategories, docs, type DocPage } from "../data/docs";
+
+interface Props { doc: DocPage }
+const { doc } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const href = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
+---
+
+<BaseLayout title={`${doc.title} — Certael Docs`} description={doc.summary}>
+  <div class="docs-frame shell">
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <a class="docs-home-link" href={href("docs/")}>Documentation</a>
+      <nav>
+        {docCategories.map((category) => (
+          <section>
+            <h2>{category}</h2>
+            {docs.filter((item) => item.category === category).map((item) => (
+              <a href={href(`docs/${item.slug}/`)} aria-current={item.slug === doc.slug ? "page" : undefined}>{item.title}</a>
+            ))}
+          </section>
+        ))}
+      </nav>
+    </aside>
+
+    <article class="docs-article">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={href("docs/")}>Docs</a><span aria-hidden="true">/</span><span>{doc.category}</span>
+      </nav>
+      <header class="docs-article-header">
+        <p class="doc-category">{doc.category}</p>
+        <h1>{doc.title}</h1>
+        <p>{doc.summary}</p>
+      </header>
+
+      {doc.sections.map((section) => (
+        <section id={section.id} class="doc-section">
+          <h2>{section.title}</h2>
+          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          {section.code?.map((sample) => (
+            <figure class="code-sample">
+              <figcaption><span>{sample.label}</span><span>{sample.language}</span></figcaption>
+              <pre tabindex="0"><code>{sample.value}</code></pre>
+            </figure>
+          ))}
+          {section.note && (
+            <aside class={`doc-note ${section.note.kind}`} aria-label={`${section.note.title}: ${section.note.body}`}>
+              <strong>{section.note.title}</strong><p>{section.note.body}</p>
+            </aside>
+          )}
+        </section>
+      ))}
+
+      <footer class="docs-source">
+        <p>This guide is maintained with the release. The linked repository document remains the normative source when protocol language differs.</p>
+        {doc.source && <a href={doc.source}>Inspect the source document <span aria-hidden="true">↗</span></a>}
+      </footer>
+    </article>
+
+    <aside class="docs-toc" aria-label="On this page">
+      <h2>On this page</h2>
+      {doc.sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
+    </aside>
+  </div>
+</BaseLayout>
