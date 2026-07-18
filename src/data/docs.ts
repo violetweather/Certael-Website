@@ -309,7 +309,7 @@ export const docs: DocPage[] = [
     category: "Integrate",
     title: "Unreal Blueprint integration",
     summary: "Call Certael session, action, Agent challenge, and diagnostic flows through typed Blueprint nodes.",
-    keywords: ["unreal", "blueprint", "nodes", "async", "c++"],
+    keywords: ["unreal", "blueprint", "blueprints", "nodes", "async", "c++"],
     source: "https://github.com/violetweather/Certael/blob/main/engines/unreal/Certael/README.md",
     sections: [
       {

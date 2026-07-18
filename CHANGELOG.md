@@ -6,6 +6,7 @@
 - Reworked the full public site through the Impeccable workflow with documented product and design context, a restrained technical-publication direction, responsive navigation, WCAG 2.2 AA behavior, and no unresolved hard-ban patterns.
 - Updated the supported release pair to Core `v0.4.0-alpha.2` and Agent `v0.4.0-alpha.1`, including the native setup archives and protected-launch splash.
 - Expanded desktop and mobile accessibility coverage to the documentation shell and interactive guide search.
+- Hardened the deployed responsive experience with opaque mobile navigation, a compact documentation disclosure, complete Blueprint search matching, and a warning-free interactive system map.
 
 [0.4.0-alpha.2]: https://github.com/violetweather/Certael-Website/compare/v0.4.0-alpha.1...v0.4.0-alpha.2
 

@@ -33,10 +33,29 @@ test("documentation search filters guides and exposes an empty state", async ({ 
   await search.fill("Auth0");
   await expect(page.getByRole("link", { name: /Console access with Auth0/ })).toBeVisible();
   await expect(page.getByText("1 guide shown")).toBeVisible();
+  await search.fill("Blueprints");
+  await expect(page.getByRole("link", { name: /Unreal Blueprint integration/ })).toBeVisible();
   await search.fill("nothing-matches-this-query");
   await expect(page.getByRole("heading", { name: "No matching guides" })).toBeVisible();
   await page.getByRole("button", { name: "Clear search" }).click();
   await expect(page.getByText("15 guides shown")).toBeVisible();
+});
+
+test("mobile navigation and documentation index stay readable", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("");
+  await page.locator(".mobile-menu summary").click();
+  const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
+  await expect(mobileNav).toBeVisible();
+  await expect(mobileNav).not.toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+
+  await page.goto("docs/core-quickstart/");
+  const index = page.locator(".docs-mobile-index");
+  await expect(index).toBeVisible();
+  await expect(index).not.toHaveAttribute("open", "");
+  await expect(page.getByRole("heading", { name: "Core quickstart" })).toBeVisible();
+  await index.locator("summary").click();
+  await expect(index.getByRole("link", { name: "Unreal Blueprint integration" })).toBeVisible();
 });
 
 test("changelog exposes every change category and both products", async ({ page }) => {

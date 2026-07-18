@@ -41,7 +41,7 @@ const href = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
   .mobile-menu { display: none; position: relative; justify-self: end; }
   .mobile-menu summary { min-width: 48px; min-height: 44px; display: grid; place-items: center; border: 1px solid var(--line-bright); border-radius: 8px; color: var(--text); cursor: pointer; list-style: none; font-weight: 650; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
-  .mobile-menu nav { position: absolute; top: calc(100% + .7rem); right: 0; width: min(280px, calc(100vw - 2rem)); display: grid; gap: 0; padding: .5rem; border: 1px solid var(--line-bright); border-radius: 10px; background: var(--panel-raised); }
+  .mobile-menu nav { position: absolute; top: calc(100% + .7rem); right: 0; width: min(280px, calc(100vw - 2rem)); display: grid; gap: 0; padding: .5rem; border: 1px solid var(--line-bright); border-radius: 10px; background: var(--panel-2); }
   .mobile-menu nav a { min-height: 44px; display: flex; align-items: center; padding: .6rem .7rem; color: var(--subtle); text-decoration: none; }
   .mobile-menu nav a:hover, .mobile-menu nav a:focus-visible { color: var(--text); background: var(--panel); }
   @media (max-width: 760px) {
