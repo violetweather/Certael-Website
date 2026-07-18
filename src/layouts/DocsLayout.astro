@@ -10,6 +10,21 @@ const href = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
 
 <BaseLayout title={`${doc.title} — Certael Docs`} description={doc.summary}>
   <div class="docs-frame shell">
+    <details class="docs-mobile-index">
+      <summary>Browse documentation</summary>
+      <nav aria-label="Documentation navigation">
+        <a class="docs-home-link" href={href("docs/")}>Documentation home</a>
+        {docCategories.map((category) => (
+          <section>
+            <h2>{category}</h2>
+            {docs.filter((item) => item.category === category).map((item) => (
+              <a href={href(`docs/${item.slug}/`)} aria-current={item.slug === doc.slug ? "page" : undefined}>{item.title}</a>
+            ))}
+          </section>
+        ))}
+      </nav>
+    </details>
+
     <aside class="docs-sidebar" aria-label="Documentation navigation">
       <a class="docs-home-link" href={href("docs/")}>Documentation</a>
       <nav>
