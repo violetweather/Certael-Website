@@ -24,7 +24,7 @@
     "astro": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "three": "0.182.0"
+    "three": "0.185.1"
   },
   "devDependencies": {
     "@astrojs/check": "latest",
